@@ -82,6 +82,7 @@ class FileUploadButton extends Component {
 			for (let i = 0; i < docs.length; i++) {
 				kwFoundArray = [];
 				kwFoundArray.push(names[i]);
+				console.log(keywords);
 				for (let k of keywords) {
 					o = occurrences(docs[i], k, true);
 					kwFoundArray.push(o);
@@ -143,12 +144,18 @@ class FileUploadButton extends Component {
 			ulEntry.onclick = () => {
 				let removingList = this.state.keywords;
 				let text = ulEntry.innerHTML;
+				console.log(text)
 				removingList = removingList.filter((value, index, removingList) => {
 					return value !== text;
 				});
 				
+				console.log(removingList)
 				keywordList.removeChild(ulEntry);
 
+				this.setState({
+					keywords: removingList
+				})
+				console.log(this.state.keywords);
 			}
 			keywordList.appendChild(ulEntry);
 		}
