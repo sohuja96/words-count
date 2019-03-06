@@ -25,12 +25,17 @@ class FileUploadButton extends Component {
 
 		const handleFile = (f) => {
 			let names = this.state.fileNames;
+			let newNames = []
 
 			for (let i of f) {
 				fr = new FileReader();
 				fr.onloadend = handleRead;
 				fr.readAsText(i);
-				names.push(i.name);
+				newNames.push(i.name);
+			}
+			newNames.reverse();
+			for (let i of newNames) {
+				names.push(i);
 			}
 			this.setState({
 				keywords: this.state.keywords,
@@ -144,7 +149,7 @@ class FileUploadButton extends Component {
 			ulEntry.onclick = () => {
 				let removingList = this.state.keywords;
 				let text = ulEntry.innerHTML;
-				console.log(text)
+				console.log(removingList)
 				removingList = removingList.filter((value, index, removingList) => {
 					return value !== text;
 				});
@@ -155,7 +160,6 @@ class FileUploadButton extends Component {
 				this.setState({
 					keywords: removingList
 				})
-				console.log(this.state.keywords);
 			}
 			keywordList.appendChild(ulEntry);
 		}

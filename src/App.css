@@ -23,14 +23,28 @@ input[type=text] {
   border: 1px solid hsl(116, 10%, 60%);
   border-radius: 3px;
   color: hsl(116, 65%, 1%);
+  padding: 3px 0px 5px 4px;
+}
+
+input[type=text]:hover {
+  border: 1px solid hsl(116, 10%, 30%);
+  padding: 3px 0px 5px 4px;
 }
 
 button {
+  background-color: hsl(219, 15%, 95%);
   margin-left: 5px;
-/*  color: hsl(116, 65%, 1%);
-  border: 2px solid hsl(116, 65%, 5%);
+  padding: 2px 2px 4px 4px;
+  color: hsl(219, 15%, 10%);
+  border: 2px solid hsl(219, 15%, 10%);
   border-radius: 5px;
-*/}
+}
+
+button:hover {
+  background-color: hsl(219, 65%, 85%);
+  color: hsl(219, 5%, 0%);
+  border: 2px solid hsl(219, 5%, 0%);
+}
 
 .App-link {
   color: #61dafb;
@@ -59,7 +73,6 @@ button {
 
 .Footer {
   margin-top: 40px;
-  opacity: .80;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -68,7 +81,7 @@ button {
   color: black;
   bottom: 0px;
   min-width: 100%;
-  background-color: black;
+  background-color: hsl(219, 15%, 20%);
 
 }
 
@@ -78,5 +91,5 @@ button {
 }
 
 .Instructions {
-  color: hsl(116, 65%, 10%);
+  color: hsl(116, 20%, 45%);
 }
