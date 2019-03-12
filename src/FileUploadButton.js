@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { generateCSV } from './GenerateCSV.js'
 
 class FileUploadButton extends Component {
 
@@ -44,60 +45,6 @@ class FileUploadButton extends Component {
 			});
 		}
 
-		const generateCSV = () => {
-			const rows = parseDocumentsForKeywords();
-			let kw = this.state.keywords;
-			kw.unshift("File name");
-			rows.unshift(kw);
-			this.setState({
-				keywords: this.state.keywords,
-				loadedFiles: this.state.loadedFiles,
-				fileNames: this.state.fileNames,
-				downloaded: true
-			});
-			let csvContent = "data:text/csv;charset=utf-8," + rows.map((e) => { return e.join(","); }).join("\n");
-			return encodeURI(csvContent);
-		}
-
-		const occurrences= (string, subString, allowOverlapping) => {
-			string += "";
-			subString += "";
-			if (subString.length <= 0) return string.length + 1;
-			let n = 0,
-			pos = 0;
-			let step = (allowOverlapping) ? (1) : (subString.length);
-
-			while (true) {
-				pos = string.indexOf(subString, pos);
-				if (pos >= 0) {
-					n++;
-					pos += step;
-				} else break;
-			}
-			return (n);
-		}
-
-		const parseDocumentsForKeywords = () => {
-			let docs = this.state.loadedFiles;
-			let keywords = this.state.keywords;
-			let names = this.state.fileNames;
-			let kwFoundArray = [];
-			let docFoundArray = [];
-			let o = 0;
-			for (let i = 0; i < docs.length; i++) {
-				kwFoundArray = [];
-				kwFoundArray.push(names[i]);
-				console.log(keywords);
-				for (let k of keywords) {
-					o = occurrences(docs[i], k, true);
-					kwFoundArray.push(o);
-				}
-				docFoundArray.push(kwFoundArray);
-			}
-			return docFoundArray;
-		}
-
-
 
 		const downloadFile = (encodedUri) => {
 
@@ -115,8 +62,10 @@ class FileUploadButton extends Component {
 
 
 		const handleDownloadCSV = () => {
-			downloadFile(generateCSV());
+			let docs = this.state.loadedFiles;
 			let kw = this.state.keywords;
+			let names = this.state.fileNames;
+			downloadFile(generateCSV(docs, kw, names));
 			kw.shift();
 		}
 
